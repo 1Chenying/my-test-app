@@ -8,44 +8,5 @@ jobs:
       # command to install dependencies
       install:
         - pip install -r requirements.txt
-        - pip install .
       # command to run tests
-      script: pytest
-
-    - stage: release to pypi
-      if: type = push
-      language: python
-      catch: pip
-      python:
-        - "3.6"
-      script:
-        - echo "Skipping tests"
-      deploy:
-        provider: pypi
-        user: meituanqa
-        password:
-          secure: "BDziC3zSwJtftkB0nn04laZymaPP9T13F81ffplkhMltUJc/zUcghjABM3HOPGk7jjpibsoYyXa6B3rg+KJhXGM3A50WX2iiYExSdgRMmV3beKlO8RYTXzqw2hkeS/atF4++564HTzRC+0NAsj8N7/T6KZNHCfFcajlk0bsHSRYtgzjPsB7YjIuSivVwwqxfve7iUClePGHH0Z5pxvO2LRRLOJZz3TScgQGBSryJjQmL4wnDjYzPUb37REi7PaDWzAUKzRwqISHXs/KQqb4AySU/p/gg7WgOan1dfDhYMEMXsBJgvUKi9itVcVZKuPSqf/pqVVIqn0mxBED7/K0EE5APDFFHG/IsVQSB/qL25AT+F4O+k8lwWvBvcE5AlvYWE6KPDM7xj9mDQ6LRNAKW95Jh/xmOSVCYoRsybdxw2QxfAqmEiG8vXwsyU49ChwXOOUpXKhBnZ65Fse/faipUPWn982pGeUZ39JdcE3WaEJhs5ssyqhObkhOAtSRa+qNzXocwF2JmR3K7tqcpVktD/HPFNwY0VKqB1T5ytOtSu4k/vKo1tLVhUfx5R49GQ96dV4g5x41xUdJYLueOvpG2i16inDHDGA7rlbn2GMqg53w002UOnTBSihE4k1nzDFlLIaP1OAi62CxR7okKZH5yLbgssw+gFqxj1VrwL82h0YM="
-        on:
-          tags: true
-
-    - stage: deploy docs
-      if: branch = master AND type = push
-      language: node_js
-      node_js:
-        - "10"
-      cache:
-        yarn: true
-        directories: node_modules
-      install:
-        - yarn global add vuepress
-        - vuepress build docs
-      script:
-        - echo "Skipping tests"
-      deploy:
-        provider: pages
-        skip-cleanup: true
-        github-token: $GITHUB_ACCESS_TOKEN  # Set in travis-ci.org dashboard, marked secure https://docs.travis-ci.com/user/deployment/pages/#Setting-the-GitHub-token
-        target-branch: gh-pages
-        local-dir: docs/.vuepress/dist
-        on:
-          branch: master
+      script: true
